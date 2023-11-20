@@ -12,13 +12,10 @@ import { Loading } from '../../customcomponents/loading';
 import { makeBlob } from '../../services/uploadImage';
 import { getARandomImageName, showToast } from '../../utils/help';
 import Toast from 'react-native-toast-message';
-import { GenderSelector } from '../../customcomponents/genderSelector';
 
 
 
-
-
-function Signup({ navigation }) {
+function AdtPage({ navigation }) {
     const [showPass, setShowPass] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setlastName] = useState('');
@@ -41,50 +38,6 @@ function Signup({ navigation }) {
     }
 
 
-
-    // Firebase Auth 
-    const signUp = () => {
-        console.log(firstName, lastName, email, password, gender);
-        //create a user account in firebase auth then upload Image
-        setShowLoading(true);
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                // Signed up successfully
-                const user = userCredential.user.uid;
-                console.log('Signed up user:', user.uid);
-                uploadImage(imageFromCamera || imageFromPicker);
-                showToast("success", "Registered Successfully Proceed to Login", "top");
-                navigation.navigate('Signin')
-
-                // Add Username, Email, Password in Firestore
-                setShowLoading(true)
-                firebase.firestore().collection("users/").doc(email).set({
-                    name: firstName, lastName,
-                    email: email,
-                    password: password,
-
-                }).then(() => {
-                    alert("Sign Up Succeccfull")
-                    navigation.navigate('Signin')
-                }).catch((err) => {
-                    Alert.alert(err)
-                })
-            })
-            .catch((autherror) => {
-                // Error occurred
-                console.log(autherror);
-                setShowLoading(false);
-                showToast("error", autherror.message, "top");
-            });
-
-
-
-
-    };
-    // Navigate to Sign in Page
-    const goToSiginp = () => {
-        navigation.navigate('Signin')
-    };
     // Open Media Picker
     const onImagePressed = () => {
         setIsPickerShown(!isPickerShown)
@@ -125,7 +78,7 @@ function Signup({ navigation }) {
 
     return (
         <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: colors.bgColors }}>
-            <Header title={'Sign up'} onPress={goToSiginp} />
+            <Header title={'ADT Marking'} />
 
             {/* Image Picker From Camera */}
             <TouchableOpacity onPress={onImagePressed}>
@@ -148,14 +101,8 @@ function Signup({ navigation }) {
                     onChange={(text) => setPassword(text)}
                 />
 
-                <GenderSelector
-                />
 
-
-                <View style={styles.textBtnCon}>
-                    <TextButton title={'Already have an account?'} onPress={goToSiginp} />
-                </View>
-                <CusButton title='Sign up' onButtonPress={signUp} />
+                <CusButton title='Submit' />
             </View>
 
             {/* Media Picker From Camera or Gallery*/}
@@ -178,11 +125,10 @@ function Signup({ navigation }) {
     );
 }
 
-export { Signup }
+export { AdtPage }
 
 const styles = StyleSheet.create({
     formCon: {
-
         height: 500,
         justifyContent: 'center',
         paddingHorizontal: modifiers.containerPadding
@@ -197,7 +143,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         alignSelf: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
-
+        justifyContent: 'center',
+        marginTop: 20
     }
 })

@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Signup } from '../screens/signup/signup';
-import { Signin } from '../screens/signin/signin';
+import { SignupPage } from '../screens/signup/signupPage';
+import { SigninPage } from '../screens/signin/signinPage';
+import { HomePage } from '../screens/home/homePage';
+import { AdtPage } from '../screens/ADT/adtPage';
+import { CustomerPage } from '../screens/Customer/customerPage';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -11,8 +15,13 @@ function NavContainer() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name='Sign Up' component={Signup} />
-                <Stack.Screen name='Sign In' component={Signin} />
+
+                <Stack.Screen name='SignupPage' component={SignupPage} />
+                <Stack.Screen name='SigninPage' component={SigninPage} />
+                <Stack.Screen name='HomePage' component={HomePage} />
+                <Stack.Screen name='ADTPage' component={AdtPage} />
+                <Stack.Screen name='CustomerPage' component={CustomerPage} />
+
             </Stack.Navigator>
         </NavigationContainer>
     )

@@ -10,7 +10,7 @@ import { Loading } from "../../customcomponents/loading";
 import { showToast } from "../../utils/help";
 import Toast from "react-native-toast-message";
 
-function Signin({ navigation }) {
+function SigninPage({ navigation }) {
   const [showPass, setShowPass] = useState(false);
   const [showloading, setShowLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -27,7 +27,7 @@ function Signin({ navigation }) {
   };
 
   const goToSignup = () => {
-    navigation.navigate("Signup");
+    navigation.navigate("SignupPage");
   };
 
   // const goToMain = async () => {
@@ -82,6 +82,9 @@ function Signin({ navigation }) {
       console.error(error);
     }
   };
+  const gotoHomePage = () => {
+    navigation.navigate('HomePage')
+  }
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.bgColors }}>
@@ -110,6 +113,9 @@ function Signin({ navigation }) {
         <View style={styles.textBtCon}>
           <TextButton title={"Create New Account?"} onPress={goToSignup} />
         </View>
+        <View style={styles.textBtCon}>
+          <TextButton title={"Go To Home Page"} onPress={gotoHomePage} />
+        </View>
       </View>
       {showloading === true && <Loading />}
       <Toast />
@@ -117,7 +123,7 @@ function Signin({ navigation }) {
   );
 }
 
-export { Signin };
+export { SigninPage };
 
 const styles = StyleSheet.create({
   formCon: {
