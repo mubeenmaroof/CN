@@ -1,53 +1,78 @@
-import { StyleSheet, View } from "react-native";
-import { CusButton } from "../../customcomponents/custombutton";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Header } from "../../customcomponents/header";
-import { colors } from "../../utils/theme";
 
 
 function HomePage({ navigation }) {
 
     const gotoAdtPage = () => {
         navigation.navigate('ADTPage')
-    }
+    };
 
     const gotoCustomerPage = () => {
         navigation.navigate('CustomerPage')
-    }
+    };
     const gotoAdtDetail = () => {
-        navigation.navigate('ADTDetail')
-    }
+        navigation.navigate('AdtDetail')
+    };
 
     const gotoCustomerDetail = () => {
         navigation.navigate('CustomerDetail')
-    }
+    };
 
     return (
-        <View style={styles.maincontainer}>
-
+        <View style={styles.container}>
             <Header title={'Home Page'} />
-            <View style={styles.container}>
-                <CusButton title="Mark ADT" onButtonPress={gotoAdtPage} />
-                <CusButton title="Mark Customer" onButtonPress={gotoCustomerPage} />
-                <CusButton title="ADT Detail" onButtonPress={gotoAdtDetail} />
-                <CusButton title="Customer Detail" onButtonPress={gotoCustomerDetail} />
+            <Text style={styles.texthead}> Marking Section </Text>
+            <View style={styles.row}>
+                <TouchableOpacity style={styles.item} onPress={gotoAdtPage}>
+                    <Text style={styles.text}>ADT Mark</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.item} onPress={gotoCustomerPage}>
+                    <Text style={styles.text}>Customer Mark</Text>
+                </TouchableOpacity>
             </View>
-
+            <Text style={styles.texthead}>Detail Section</Text>
+            <View style={styles.row}>
+                <TouchableOpacity style={styles.item} onPress={gotoAdtDetail}>
+                    <Text style={styles.text}>ADT Details</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.item} onPress={gotoCustomerDetail}>
+                    <Text style={styles.text}>Customer Details</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
-}
+};
 
 export { HomePage };
 
 const styles = StyleSheet.create({
-    maincontainer: {
-        flex: 1,
-        backgroundColor: colors.bgColors
-    },
     container: {
-        alignSelf: 'center',
+        flex: 1,
         justifyContent: 'center',
-        width: '60%',
-        marginTop: 150,
+        alignItems: 'center',
     },
+    row: {
+        flexDirection: 'row',
+        marginBottom: 20,
+    },
+    item: {
+        backgroundColor: 'blue',
+        padding: 10,
+        marginHorizontal: 10,
+        borderRadius: 5,
+        width: 130,
+        height: 130,
+        justifyContent: 'center'
+    },
+    text: {
+        color: 'white',
+        textAlign: 'center',
 
-})
+    }, texthead: {
+        fontSize: 20,
+        marginBottom: 30,
+        fontWeight: 'bold',
+
+    }
+});

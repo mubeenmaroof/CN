@@ -13,6 +13,7 @@ import { makeBlob } from '../../services/uploadImage';
 import { getARandomImageName, showToast } from '../../utils/help';
 import Toast from 'react-native-toast-message';
 import { GenderSelector } from '../../customcomponents/genderSelector';
+import { Ionicons } from '@expo/vector-icons';
 
 
 
@@ -131,6 +132,7 @@ function SignupPage({ navigation }) {
             <TouchableOpacity onPress={onImagePressed}>
                 <View style={styles.imagePicker}>
                     <Image source={{ uri: imageFromPicker || imageFromCamera }} style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode={'contain'} />
+                    <Ionicons name={'camera-sharp'} size={50} color={'white'} style={{ marginBottom: 60, paddingBottom: 50, height: 100 }} />
                 </View>
             </TouchableOpacity>
 

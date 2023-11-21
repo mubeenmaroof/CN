@@ -1,8 +1,9 @@
 import { TextInput, StyleSheet, View } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { colors, modifiers } from "../utils/theme";
+import { Calendar } from "react-native-calendars";
 
-function Input({ onChange, placeholder, isSecure, showIcon, iconName, onIconPress, beMultiline }) {
+function Input({ onChange, placeholder, isSecure, showIcon, iconName, onIconPress, beMultiline, showCalender }) {
     return (
         <View style={styles.inputCon}>
             <TextInput style={styles.input}
@@ -16,6 +17,12 @@ function Input({ onChange, placeholder, isSecure, showIcon, iconName, onIconPres
                 showIcon === true ?
                     <Ionicons style={styles.icon} name={iconName} size={30} color={colors.green} onPress={onIconPress} /> :
                     <View />
+            }
+            {
+                showCalender === true ?
+                    <Calendar style={styles.iconCalen} /> :
+                    <View />
+
             }
 
 
@@ -45,6 +52,9 @@ const styles = StyleSheet.create({
 
     },
     icon: {
+        alignSelf: 'center'
+    },
+    iconCalen: {
         alignSelf: 'center'
     }
 })

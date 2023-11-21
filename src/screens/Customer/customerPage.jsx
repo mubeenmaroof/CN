@@ -11,6 +11,7 @@ import { Loading } from '../../customcomponents/loading';
 import { makeBlob } from '../../services/uploadImage';
 import { getARandomImageName, showToast } from '../../utils/help';
 import Toast from 'react-native-toast-message';
+import { Ionicons } from '@expo/vector-icons';
 
 
 function CustomerPage({ navigation }) {
@@ -20,6 +21,11 @@ function CustomerPage({ navigation }) {
     const [imageFromPicker, setImageFromPicker] = useState('');
     const [imageFromCamera, setImageFromCamera] = useState('');
     const [showloading, setShowLoading] = useState(false);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setlastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [gender, setGender] = useState();
 
 
     const handleShowPass = () => {
@@ -77,6 +83,7 @@ function CustomerPage({ navigation }) {
             <TouchableOpacity onPress={onImagePressed}>
                 <View style={styles.imagePicker}>
                     <Image source={{ uri: imageFromPicker || imageFromCamera }} style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode={'contain'} />
+                    <Ionicons name={'camera-sharp'} size={50} color={'white'} style={{ marginBottom: 60, paddingBottom: 50, height: 100 }} />
                 </View>
             </TouchableOpacity>
 
@@ -122,8 +129,6 @@ export { CustomerPage }
 
 const styles = StyleSheet.create({
     formCon: {
-        height: 500,
-        justifyContent: 'center',
         paddingHorizontal: modifiers.containerPadding
     },
     textBtnCon: {
