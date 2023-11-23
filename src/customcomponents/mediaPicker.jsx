@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import Modal from "react-native-modal";
 import { CusButton } from "./custombutton";
 import { Ionicons } from '@expo/vector-icons';
@@ -34,13 +34,15 @@ function MediaPicker({ show, onClose, onCameraPressed, onImagePickerSelected }) 
                         <TouchableOpacity style={styles.circleView} onPress={onCameraPressed}>
                             <Ionicons name={'camera-sharp'} size={50} color={'white'} />
                         </TouchableOpacity>
-
                         <TouchableOpacity style={styles.circleView} onPress={pickImageFrpmGallery}>
                             <Ionicons name={'image-sharp'} size={50} color={'white'} />
                         </TouchableOpacity>
-
                     </View>
-                    <View style={{ marginTop: 30 }}>
+                    <View style={styles.textView}>
+                        <Text style={styles.textCon}>Camera</Text>
+                        <Text style={styles.textCon}>Gallary</Text>
+                    </View>
+                    <View>
                         <CusButton title={'Cancel'} onButtonPress={onClose} />
                     </View>
 
@@ -62,5 +64,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
 
+    },
+    textView: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        height: 35,
+        alignItems: 'center',
+        columnGap: 15,
+    }, textCon: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        alignItems: 'center',
+        letterSpacing: 1,
     }
 })

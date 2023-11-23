@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, ScrollView, StyleSheet, TouchableOpacity, Alert, Image, Text } from 'react-native';
+import { View, ScrollView, StyleSheet, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { CusButton } from '../../customcomponents/custombutton';
 import { Input } from "../../customcomponents/input";
 import { colors, modifiers } from "../../utils/theme";
@@ -76,52 +76,60 @@ function CustomerPage({ navigation }) {
     }
 
     return (
-        <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: colors.bgColors }}>
-            <Header title={'Customer Marking'} />
+        <SafeAreaView style={styles.mainContainer}>
+            <ScrollView >
+                <Header title={'Customer Marking'} />
 
-            {/* Image Picker From Camera */}
-            <TouchableOpacity onPress={onImagePressed}>
-                <View style={styles.imagePicker}>
-                    <Image source={{ uri: imageFromPicker || imageFromCamera }} style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode={'contain'} />
-                    <Ionicons name={'camera-sharp'} size={50} color={'white'} style={{ marginBottom: 60, paddingBottom: 50, height: 100 }} />
+                {/* Image Picker From Camera */}
+                <TouchableOpacity onPress={onImagePressed}>
+                    <View style={styles.imagePicker}>
+                        <Image source={{ uri: imageFromPicker || imageFromCamera }} style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode={'contain'} />
+                        <Ionicons name={'camera-sharp'} size={50} color={'white'} style={{ marginBottom: 60, paddingBottom: 50, height: 100 }} />
+                    </View>
+                </TouchableOpacity>
+
+
+                {/* Add Username, Email, Password with Button*/}
+                <View style={styles.formCon}>
+                    <Input placeholder={'Sr. No'} />
+                    <Input placeholder={'POP_ID'} onChange={setlastName} />
+                    <Input placeholder={'Pocket_ID'} onChange={(text) => setEmail(text)} />
+                    <Input placeholder={'Block Name'} onChange={(text) => setPassword(text)} />
+                    <Input placeholder={'ADT_ID'} onChange={setlastName} />
+                    <Input placeholder={'ADT Adress'} onChange={(text) => setEmail(text)} />
+                    <Input placeholder={'ADT SP No'} onChange={(text) => setPassword(text)} />
+                    <Input placeholder={'SLOT'} onChange={setlastName} />
+                    <Input placeholder={'PON'} onChange={(text) => setEmail(text)} />
+                    <Input placeholder={'DC_ID'} onChange={(text) => setPassword(text)} />
+                    <Input placeholder={'Fiber Length (m)'} onChange={setlastName} />
+                    <Input placeholder={'SP Type'} onChange={(text) => setEmail(text)} />
+                    <Input placeholder={'SP Port'} onChange={(text) => setPassword(text)} />
+                    <Input placeholder={'Month'} onChange={(text) => setEmail(text)} />
+                    <Input placeholder={'Installed By'} onChange={(text) => setDate(text)} />
+
+
+
+                    <CusButton title='Submit' />
                 </View>
-            </TouchableOpacity>
 
-
-            {/* Add Username, Email, Password with Button*/}
-            <View style={styles.formCon}>
-                <Input placeholder={'First Name'} showIcon={true} iconName={'person-outline'} onChange={setFirstName} />
-                <Input placeholder={'Last Name'} showIcon={true} iconName={'person-outline'} onChange={setlastName} />
-                <Input placeholder={'Email'} showIcon={true} iconName={'mail-outline'} onChange={(text) => setEmail(text)} />
-                <Input placeholder={'Password'}
-                    isSecure={!showPass}
-                    showIcon={true}
-                    iconName={showPass === false ? 'eye-outline' : 'eye-off-outline'}
-                    onIconPress={handleShowPass}
-                    onChange={(text) => setPassword(text)}
+                {/* Media Picker From Camera or Gallery*/}
+                <MediaPicker show={isPickerShown}
+                    onClose={onImagePressed}
+                    onImagePickerSelected={(imageSelected) => { onImageCameFromGallery(imageSelected) }}
+                    onCameraPressed={() => { setIsCameraShown(!isCameraShown) }}
                 />
+                <CustomCamera show={isCameraShown}
+                    onClose={() => setIsCameraShown(false)}
+                    onPicktureTaken={(response) => {
+                        setIsCameraShown(false), setIsPickerShown(false)
+                        setImageFromCamera(response.uri)
+                    }}
+                />
+                {showloading && <Loading />}
+                <Toast />
 
-
-                <CusButton title='Submit' />
-            </View>
-
-            {/* Media Picker From Camera or Gallery*/}
-            <MediaPicker show={isPickerShown}
-                onClose={onImagePressed}
-                onImagePickerSelected={(imageSelected) => { onImageCameFromGallery(imageSelected) }}
-                onCameraPressed={() => { setIsCameraShown(!isCameraShown) }}
-            />
-            <CustomCamera show={isCameraShown}
-                onClose={() => setIsCameraShown(false)}
-                onPicktureTaken={(response) => {
-                    setIsCameraShown(false), setIsPickerShown(false)
-                    setImageFromCamera(response.uri)
-                }}
-            />
-            {showloading && <Loading />}
-            <Toast />
-
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
 

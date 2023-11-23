@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, ScrollView, StyleSheet, TouchableOpacity, Alert, Image, Text } from 'react-native';
+import { View, ScrollView, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
 import { CusButton } from '../../customcomponents/custombutton';
 import { Input } from "../../customcomponents/input";
 import { colors, modifiers } from "../../utils/theme";
@@ -14,6 +14,7 @@ import { getARandomImageName, showToast } from '../../utils/help';
 import Toast from 'react-native-toast-message';
 import { GenderSelector } from '../../customcomponents/genderSelector';
 import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native';
 
 
 
@@ -25,6 +26,7 @@ function SignupPage({ navigation }) {
     const [lastName, setlastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [mobileNo, setMobileNo] = useState('');
     const [gender, setGender] = useState();
     const [isPickerShown, setIsPickerShown] = useState(false);
     const [isCameraShown, setIsCameraShown] = useState(false);
@@ -125,58 +127,63 @@ function SignupPage({ navigation }) {
     }
 
     return (
-        <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: colors.bgColors }}>
-            <Header title={'Sign up'} onPress={goToSiginp} />
+        <SafeAreaView style={{ flex: 1, backgroundColor: colors.bgColors }}>
+            <ScrollView >
+                <Header title={'Sign up'} onPress={goToSiginp} />
 
-            {/* Image Picker From Camera */}
-            <TouchableOpacity onPress={onImagePressed}>
-                <View style={styles.imagePicker}>
-                    <Image source={{ uri: imageFromPicker || imageFromCamera }} style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode={'contain'} />
-                    <Ionicons name={'camera-sharp'} size={50} color={'white'} style={{ marginBottom: 60, paddingBottom: 50, height: 100 }} />
+                {/* Image Picker From Camera */}
+                <View>
+                    <TouchableOpacity onPress={onImagePressed}>
+                        <View style={styles.imagePicker}>
+                            <Image source={{ uri: imageFromPicker || imageFromCamera }} style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode={'contain'} />
+                            <Ionicons name={'camera-sharp'} size={50} color={'white'} style={{ marginBottom: 60, paddingBottom: 50, height: 100 }} />
+                        </View>
+                    </TouchableOpacity>
                 </View>
-            </TouchableOpacity>
 
 
-            {/* Add Username, Email, Password with Button*/}
-            <View style={styles.formCon}>
-                <Input placeholder={'First Name'} showIcon={true} iconName={'person-outline'} onChange={setFirstName} />
-                <Input placeholder={'Last Name'} showIcon={true} iconName={'person-outline'} onChange={setlastName} />
-                <Input placeholder={'Email'} showIcon={true} iconName={'mail-outline'} onChange={(text) => setEmail(text)} />
-                <Input placeholder={'Password'}
-                    isSecure={!showPass}
-                    showIcon={true}
-                    iconName={showPass === false ? 'eye-outline' : 'eye-off-outline'}
-                    onIconPress={handleShowPass}
-                    onChange={(text) => setPassword(text)}
-                />
+                {/* Add Username, Email, Password with Button*/}
+                <View style={styles.formCon}>
+                    <Input placeholder={'First Name'} showIcon={true} iconName={'person-outline'} onChange={setFirstName} />
+                    <Input placeholder={'Last Name'} showIcon={true} iconName={'person-outline'} onChange={setlastName} />
+                    <Input placeholder={'Email'} showIcon={true} iconName={'mail-outline'} onChange={(text) => setEmail(text)} />
+                    <Input placeholder={'Password'}
+                        isSecure={!showPass}
+                        showIcon={true}
+                        iconName={showPass === false ? 'eye-outline' : 'eye-off-outline'}
+                        onIconPress={handleShowPass}
+                        onChange={(text) => setPassword(text)}
+                    />
+                    <Input placeholder={'Mobile No'} showIcon={true} iconName={'person-outline'} onChange={(text) => setMobileNo(text)} />
 
-                <GenderSelector
-                />
+                    <GenderSelector
+                    />
 
 
-                <View style={styles.textBtnCon}>
-                    <TextButton title={'Already have an account?'} onPress={goToSiginp} />
+                    <View style={styles.textBtnCon}>
+                        <TextButton title={'Already have an account?'} onPress={goToSiginp} />
+                    </View>
+                    <CusButton title='Sign up' onButtonPress={signUp} />
                 </View>
-                <CusButton title='Sign up' onButtonPress={signUp} />
-            </View>
 
-            {/* Media Picker From Camera or Gallery*/}
-            <MediaPicker show={isPickerShown}
-                onClose={onImagePressed}
-                onImagePickerSelected={(imageSelected) => { onImageCameFromGallery(imageSelected) }}
-                onCameraPressed={() => { setIsCameraShown(!isCameraShown) }}
-            />
-            <CustomCamera show={isCameraShown}
-                onClose={() => setIsCameraShown(false)}
-                onPicktureTaken={(response) => {
-                    setIsCameraShown(false), setIsPickerShown(false)
-                    setImageFromCamera(response.uri)
-                }}
-            />
-            {showloading && <Loading />}
-            <Toast />
+                {/* Media Picker From Camera or Gallery*/}
+                <MediaPicker show={isPickerShown}
+                    onClose={onImagePressed}
+                    onImagePickerSelected={(imageSelected) => { onImageCameFromGallery(imageSelected) }}
+                    onCameraPressed={() => { setIsCameraShown(!isCameraShown) }}
+                />
+                <CustomCamera show={isCameraShown}
+                    onClose={() => setIsCameraShown(false)}
+                    onPicktureTaken={(response) => {
+                        setIsCameraShown(false), setIsPickerShown(false)
+                        setImageFromCamera(response.uri)
+                    }}
+                />
+                {showloading && <Loading />}
+                <Toast />
 
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
 
@@ -184,10 +191,10 @@ export { SignupPage }
 
 const styles = StyleSheet.create({
     formCon: {
-
-        height: 500,
+        paddingTop: 80,
+        height: '60%',
         justifyContent: 'center',
-        paddingHorizontal: modifiers.containerPadding
+        paddingHorizontal: modifiers.containerPadding,
     },
     textBtnCon: {
         alignItems: 'flex-end'

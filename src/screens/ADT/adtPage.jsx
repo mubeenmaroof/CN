@@ -4,7 +4,6 @@ import { CusButton } from '../../customcomponents/custombutton';
 import { Input } from "../../customcomponents/input";
 import { colors, modifiers } from "../../utils/theme";
 import { Header } from "../../customcomponents/header";
-import { TextButton } from "../../customcomponents/textButton";
 import { MediaPicker } from '../../customcomponents/mediaPicker';
 import { firebase } from '../../services/firebaseConfig';
 import { CustomCamera } from '../../customcomponents/CustomCamera';
@@ -13,7 +12,9 @@ import { makeBlob } from '../../services/uploadImage';
 import { getARandomImageName, showToast } from '../../utils/help';
 import Toast from 'react-native-toast-message';
 import { Ionicons } from '@expo/vector-icons';
-import DatePicker from 'react-native-datepicker';
+import RNPickerSelect from 'react-native-picker-select';
+
+
 
 
 function AdtPage({ navigation }) {
@@ -28,19 +29,171 @@ function AdtPage({ navigation }) {
     const [imageFromPicker, setImageFromPicker] = useState('');
     const [imageFromCamera, setImageFromCamera] = useState('');
     const [showloading, setShowLoading] = useState(false);
-    const [date, setDate] = useState('');
+    const [srNo, setSrNo] = useState(1); // Initial Sr. No
+    const [otherField, setOtherField] = useState('');
 
-    const handleDateChange = newDate => {
-        setDate(newDate);
+    // For Drop Down Picker Select
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedSubcategory1, setSelectedSubcategory1] = useState(null);
+    const [selectedSubcategory2, setSelectedSubcategory2] = useState(null);
+    // Add Splitter Detail
+    const [selectedSplitter, setSelectedSplitter] = useState(null);
+
+    const categories = [
+        { label: 'Select a POP', value: null },
+        { label: 'Model Town POP', value: 'MTPOP' },
+        { label: 'Satellite Town POP', value: 'STPOP' },
+        { label: 'Tariq POP', value: 'TQPOP' },
+        // Add more categories as needed
+    ];
+    const subcategoryOptions = {
+        MTPOP: [
+            // Subcategories for Model Town POP
+            { label: 'Select a Pocket', value: null },
+            { label: 'Model Town A', value: 'MT01' },
+            { label: 'Model Town B', value: 'MT02' },
+            { label: 'Muhammadia & Trust Colony', value: 'MT03' },
+            { label: 'Al-Noor & Hashmi Garden', value: 'MT04' },
+            { label: 'Model Town C', value: 'MT05' },
+            { label: 'Sadiq + Officer + Adil Town', value: 'MT06' },
+            { label: 'Faisal Bagh', value: 'MT07' },
+            { label: 'Cheema Town', value: 'MT08' },
+            { label: 'Qasim Towm', value: 'MT09' },
+            { label: 'Model Town B1', value: 'MT10' },
+            { label: 'Kausar Colony', value: 'MT11' },
+            { label: 'Islami Colony ', value: 'MT12' },
+        ],
+        STPOP: [
+            // Subcategories for Satellite Town POP
+            { label: 'Select a Pocket', value: null },
+            { label: 'Satellite Town', value: 'ST01' },
+            { label: 'Muslim Town', value: 'ST02' },
+            { label: 'New Satellite Town', value: 'ST03' },
+            { label: 'Govt. Employee Society Pk1', value: 'ST04-PK1' },
+            { label: 'Govt. Employee Society Pk2', value: 'ST05-PK2' },
+            { label: 'City Garden', value: 'ST06' },
+        ],
+        TQPOP: [
+            // Subcategories for Tariq POP
+            { label: 'Select a Pocket', value: null },
+            { label: 'Khayaban-e-Ali', value: 'TQ01' },
+            { label: 'DHA Bahawalpur', value: 'TQ02' },
+        ],
+
+    };
+    const subcategoryOptions1 = {
+        MT01: [
+            // Subcategories for Model Town POP
+            { label: 'Select a DC Cable', value: null },
+            { label: 'DC01', value: 'DC01' },
+            { label: 'DC02', value: 'DC02' },
+            { label: 'DC03', value: 'DC03' },
+            { label: 'DC04', value: 'DC04' },
+            { label: 'DC05', value: 'DC05' },
+
+        ],
+        MT02: [
+            // Subcategories for Model Town POP
+            { label: 'Select a DC Cable', value: null },
+            { label: 'DC01', value: 'DC01' },
+            { label: 'DC02', value: 'DC02' },
+            { label: 'DC03', value: 'DC03' },
+            { label: 'DC04', value: 'DC04' },
+            { label: 'DC05', value: 'DC05' },
+
+        ],
+        MT03: [
+            // Subcategories for Model Town POP
+            { label: 'Select a DC Cable', value: null },
+            { label: 'DC01', value: 'DC01' },
+            { label: 'DC02', value: 'DC02' },
+            { label: 'DC03', value: 'DC03' },
+            { label: 'DC04', value: 'DC04' },
+            { label: 'DC05', value: 'DC05' },
+
+        ],
+        ST01: [
+            // Subcategories for Model Town POP
+            { label: 'Select a DC Cable', value: null },
+            { label: 'DC01', value: 'DC01' },
+            { label: 'DC02', value: 'DC02' },
+            { label: 'DC03', value: 'DC03' },
+            { label: 'DC04', value: 'DC04' },
+            { label: 'DC05', value: 'DC05' },
+
+        ],
+        ST02: [
+            // Subcategories for Model Town POP
+            { label: 'Select a DC Cable', value: null },
+            { label: 'DC01', value: 'DC01' },
+            { label: 'DC02', value: 'DC02' },
+            { label: 'DC03', value: 'DC03' },
+            { label: 'DC04', value: 'DC04' },
+            { label: 'DC05', value: 'DC05' },
+
+        ],
+        ST03: [
+            // Subcategories for Model Town POP
+            { label: 'Select a DC Cable', value: null },
+            { label: 'DC01', value: 'DC01' },
+            { label: 'DC02', value: 'DC02' },
+            { label: 'DC03', value: 'DC03' },
+            { label: 'DC04', value: 'DC04' },
+            { label: 'DC05', value: 'DC05' },
+
+        ],
+        TQ01: [
+            // Subcategories for Model Town POP
+            { label: 'Select a DC Cable', value: null },
+            { label: 'DC01', value: 'DC01' },
+            { label: 'DC02', value: 'DC02' },
+            { label: 'DC03', value: 'DC03' },
+            { label: 'DC04', value: 'DC04' },
+            { label: 'DC05', value: 'DC05' },
+
+        ],
+        TQ02: [
+            // Subcategories for Model Town POP
+            { label: 'Select a DC Cable', value: null },
+            { label: 'DC01', value: 'DC01' },
+            { label: 'DC02', value: 'DC02' },
+            { label: 'DC03', value: 'DC03' },
+            { label: 'DC04', value: 'DC04' },
+            { label: 'DC05', value: 'DC05' },
+        ]
+
     };
 
+    const splitterType = [
+        { label: 'Select a Splitter', value: null },
+        { label: '1/4', value: '1/4' },
+        { label: '1/8', value: '1/8' },
+        { label: '1/16', value: '1/16' },
+        // Add more categories as needed
+    ];
+
+    const handleCategoryChange = (value) => {
+        setSelectedCategory(value);
+        setSelectedSubcategory1(null);
+        setSelectedSubcategory2(null);
+    };
+
+
+
+    const handleSubmit = () => {
+        // Handle form submission logic here
+        // Increment Sr. No for the next entry
+        setSrNo((prevSrNo) => prevSrNo + 1);
+        // Update the TextInput value with the new Sr. No
+        setOtherField(`Sr. No: ${srNo + 1}`);
+    };
     const handleShowPass = () => {
         setShowPass(!showPass)
-    }
+    };
     const onImageCameFromGallery = (image) => {
         setImageFromPicker(image.uri)
         setIsPickerShown(false)
-    }
+    };
 
 
     // Open Media Picker
@@ -98,26 +251,60 @@ function AdtPage({ navigation }) {
 
                 {/* Add Username, Email, Password with Button*/}
                 <View style={styles.formCon}>
-                    <Input placeholder={'Sr. No'} onChange={setFirstName} />
-                    <Input placeholder={'POP_ID'} onChange={setlastName} />
-                    <Input placeholder={'Pocket_ID'} onChange={(text) => setEmail(text)} />
+
+                    <Text>Add ADT Details:</Text>
+                    <RNPickerSelect
+                        placeholder={{}}
+                        items={categories}
+                        onValueChange={handleCategoryChange}
+                        value={selectedCategory}
+                    />
+
+                    {selectedCategory && (
+                        <>
+                            <Text>Select Pockets for {selectedCategory}:</Text>
+                            <RNPickerSelect
+                                placeholder={{}}
+                                items={subcategoryOptions[selectedCategory]}
+                                onValueChange={(value) => setSelectedSubcategory1(value)}
+                                value={selectedSubcategory1}
+                            />
+                        </>
+                    )}
+
+                    {selectedSubcategory1 && (
+                        <>
+                            <Text>Select a Distribution Cable for {selectedSubcategory1}:</Text>
+                            <RNPickerSelect
+                                placeholder={{}}
+                                items={subcategoryOptions1[selectedSubcategory1]}
+                                onValueChange={(value) => setSelectedSubcategory2(value)}
+                                value={selectedSubcategory2}
+                            />
+                        </>
+                    )}
+
+
                     <Input placeholder={'Block Name'} onChange={(text) => setPassword(text)} />
                     <Input placeholder={'ADT_ID'} onChange={setlastName} />
                     <Input placeholder={'ADT Adress'} onChange={(text) => setEmail(text)} />
                     <Input placeholder={'ADT SP No'} onChange={(text) => setPassword(text)} />
                     <Input placeholder={'SLOT'} onChange={setlastName} />
                     <Input placeholder={'PON'} onChange={(text) => setEmail(text)} />
-                    <Input placeholder={'DC_ID'} onChange={(text) => setPassword(text)} />
                     <Input placeholder={'Fiber Length (m)'} onChange={setlastName} />
-                    <Input placeholder={'SP Type'} onChange={(text) => setEmail(text)} />
+
+                    <Text>Add Splitter Details:</Text>
+                    <RNPickerSelect
+                        placeholder={{}}
+                        items={splitterType}
+                        onValueChange={(value) => setSelectedSplitter(value)}
+                        value={selectedSplitter}
+                    />
+
                     <Input placeholder={'SP Port'} onChange={(text) => setPassword(text)} />
-                    <Input placeholder={"Installation Date"} showCalender={false} />
+                    <Input placeholder={'Installed By'} onChange={(text) => setDate(text)} />
 
-                    <Input placeholder={'Month'} onChange={(text) => setEmail(text)} />
-                    <Input placeholder={'Installed By'} onChange={(text) => setPassword(text)} />
-
-
-                    <CusButton title='Submit' />
+                    <CusButton title='Submit' onButtonPress={handleSubmit} />
                 </View>
 
                 {/* Media Picker From Camera or Gallery*/}
@@ -179,5 +366,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
+});
 
-})
