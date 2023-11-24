@@ -2,7 +2,7 @@ import { TextInput, StyleSheet, View } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { colors, modifiers } from "../utils/theme";
 
-function Input({ onChange, placeholder, isSecure, showIcon, iconName, onIconPress, beMultiline }) {
+function Input({ onChange, placeholder, isSecure, showIcon, iconName, onIconPress, beMultiline, editable, value }) {
     return (
         <View style={styles.inputCon}>
             <TextInput style={styles.input}
@@ -10,6 +10,8 @@ function Input({ onChange, placeholder, isSecure, showIcon, iconName, onIconPres
                 onChangeText={onChange}
                 secureTextEntry={isSecure}
                 multilin={beMultiline}
+                editable={editable}
+                value={value}
 
             />
             {
@@ -33,7 +35,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         borderRadius: 5,
         marginVertical: modifiers.itemMargin,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        flex: 1
 
 
     },

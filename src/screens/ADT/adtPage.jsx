@@ -13,6 +13,8 @@ import { getARandomImageName, showToast } from '../../utils/help';
 import Toast from 'react-native-toast-message';
 import { Ionicons } from '@expo/vector-icons';
 import RNPickerSelect from 'react-native-picker-select';
+import { DateTimePicker } from '../../customcomponents/datePicker';
+import { LocationMap } from '../../customcomponents/mapAndGeoLocation';
 
 
 
@@ -38,7 +40,13 @@ function AdtPage({ navigation }) {
     const [selectedSubcategory2, setSelectedSubcategory2] = useState(null);
     // Add Splitter Detail
     const [selectedSplitter, setSelectedSplitter] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(null);
 
+    const handleDateChange = (date) => {
+        // Handle the selected date as needed in the parent component
+        setSelectedDate(!selectedDate)
+        console.log('Selected Date:', date.toDateString());
+    };
     const categories = [
         { label: 'Select a POP', value: null },
         { label: 'Model Town POP', value: 'MTPOP' },
@@ -234,6 +242,7 @@ function AdtPage({ navigation }) {
         }
     }
 
+
     return (
         <SafeAreaView style={styles.mainContainer}>
             <ScrollView >
@@ -251,38 +260,39 @@ function AdtPage({ navigation }) {
 
                 {/* Add Username, Email, Password with Button*/}
                 <View style={styles.formCon}>
+                    <View style={styles.sp}>
+                        <Text>Add ADT Details:</Text>
+                        <RNPickerSelect
+                            placeholder={{}}
+                            items={categories}
+                            onValueChange={handleCategoryChange}
+                            value={selectedCategory}
+                        />
 
-                    <Text>Add ADT Details:</Text>
-                    <RNPickerSelect
-                        placeholder={{}}
-                        items={categories}
-                        onValueChange={handleCategoryChange}
-                        value={selectedCategory}
-                    />
+                        {selectedCategory && (
+                            <>
+                                <Text>Select Pockets for {selectedCategory}:</Text>
+                                <RNPickerSelect
+                                    placeholder={{}}
+                                    items={subcategoryOptions[selectedCategory]}
+                                    onValueChange={(value) => setSelectedSubcategory1(value)}
+                                    value={selectedSubcategory1}
+                                />
+                            </>
+                        )}
 
-                    {selectedCategory && (
-                        <>
-                            <Text>Select Pockets for {selectedCategory}:</Text>
-                            <RNPickerSelect
-                                placeholder={{}}
-                                items={subcategoryOptions[selectedCategory]}
-                                onValueChange={(value) => setSelectedSubcategory1(value)}
-                                value={selectedSubcategory1}
-                            />
-                        </>
-                    )}
-
-                    {selectedSubcategory1 && (
-                        <>
-                            <Text>Select a Distribution Cable for {selectedSubcategory1}:</Text>
-                            <RNPickerSelect
-                                placeholder={{}}
-                                items={subcategoryOptions1[selectedSubcategory1]}
-                                onValueChange={(value) => setSelectedSubcategory2(value)}
-                                value={selectedSubcategory2}
-                            />
-                        </>
-                    )}
+                        {selectedSubcategory1 && (
+                            <>
+                                <Text>Select a Distribution Cable for {selectedSubcategory1}:</Text>
+                                <RNPickerSelect
+                                    placeholder={{}}
+                                    items={subcategoryOptions1[selectedSubcategory1]}
+                                    onValueChange={(value) => setSelectedSubcategory2(value)}
+                                    value={selectedSubcategory2}
+                                />
+                            </>
+                        )}
+                    </View>
 
 
                     <Input placeholder={'Block Name'} onChange={(text) => setPassword(text)} />
@@ -292,18 +302,24 @@ function AdtPage({ navigation }) {
                     <Input placeholder={'SLOT'} onChange={setlastName} />
                     <Input placeholder={'PON'} onChange={(text) => setEmail(text)} />
                     <Input placeholder={'Fiber Length (m)'} onChange={setlastName} />
-
-                    <Text>Add Splitter Details:</Text>
-                    <RNPickerSelect
-                        placeholder={{}}
-                        items={splitterType}
-                        onValueChange={(value) => setSelectedSplitter(value)}
-                        value={selectedSplitter}
-                    />
+                    <View style={styles.sp}>
+                        <Text>Add Splitter Details:</Text>
+                        <RNPickerSelect
+                            placeholder={{}}
+                            items={splitterType}
+                            onValueChange={(value) => setSelectedSplitter(value)}
+                            value={selectedSplitter}
+                            style={styles.drop}
+                        />
+                    </View>
 
                     <Input placeholder={'SP Port'} onChange={(text) => setPassword(text)} />
+                    <DateTimePicker onDateChange={handleDateChange} onChange={(date) => setSelectedDate(date)} />
                     <Input placeholder={'Installed By'} onChange={(text) => setDate(text)} />
 
+                    <View style={{ flex: 1 }}>
+                        <LocationMap />
+                    </View>
                     <CusButton title='Submit' onButtonPress={handleSubmit} />
                 </View>
 
@@ -328,7 +344,7 @@ function AdtPage({ navigation }) {
     );
 }
 
-export { AdtPage }
+export { AdtPage };
 
 const styles = StyleSheet.create({
     mainContainer: {
@@ -365,6 +381,10 @@ const styles = StyleSheet.create({
     }, container: {
         flexDirection: 'row',
         alignItems: 'center',
+    }, sp: {
+        width: '90%',
+        marginLeft: 20,
     },
+
 });
 
