@@ -94,6 +94,7 @@ function SignupPage({ navigation }) {
         setIsPickerShown(!isPickerShown)
     };
 
+
     async function uploadImage(imgUri) {
         try {
             const imgBlob = await makeBlob(imgUri);

@@ -84,7 +84,10 @@ function SigninPage({ navigation }) {
   };
   const gotoHomePage = () => {
     navigation.navigate('HomePage')
-  }
+  };
+  const gotoForgetPage = () => {
+    navigation.navigate('ForgetPage')
+  };
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.bgColors }}>
@@ -106,7 +109,7 @@ function SigninPage({ navigation }) {
           onChange={(text) => setPassword(text)}
         />
         <View style={styles.textBtnCon}>
-          <TextButton title={"Forgot your password?"} />
+          <TextButton title={"Forgot your password?"} onPress={gotoForgetPage} />
         </View>
 
         <CusButton title="Sign in" onButtonPress={handleSignIn} />

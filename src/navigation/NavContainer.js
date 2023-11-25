@@ -9,6 +9,7 @@ import { CustomerPage } from '../screens/Customer/customerPage';
 import { AdtDetail } from '../screens/ADT/adtDetail';
 import { CustomerDetail } from '../screens/Customer/customerDetail';
 import { SplashScreen } from '../customcomponents/splashScreen';
+import { ForgetPage } from '../screens/forgetscreen/forgetScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -16,10 +17,11 @@ const Stack = createNativeStackNavigator();
 function NavContainer() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={'Splash'}>
+            <Stack.Navigator initialRouteName={'Splash'} >
                 <Stack.Screen name='Splash' component={SplashScreen} options={{ headerShown: false }} />
                 <Stack.Screen name='SignupPage' component={SignupPage} />
                 <Stack.Screen name='SigninPage' component={SigninPage} />
+                <Stack.Screen name='ForgetPage' component={ForgetPage} />
                 <Stack.Screen name='HomePage' component={HomePage} />
                 <Stack.Screen name='ADTPage' component={AdtPage} />
                 <Stack.Screen name='CustomerPage' component={CustomerPage} />
