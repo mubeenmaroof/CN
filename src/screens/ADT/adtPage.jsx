@@ -315,11 +315,7 @@ function AdtPage({ navigation }) {
 
                     <Input placeholder={'SP Port'} onChange={(text) => setPassword(text)} />
                     <DateTimePicker onDateChange={handleDateChange} onChange={(date) => setSelectedDate(date)} />
-                    <Input placeholder={'Installed By'} onChange={(text) => setDate(text)} />
 
-                    <View style={{ flex: 1 }}>
-                        <LocationMap />
-                    </View>
                     <CusButton title='Submit' onButtonPress={handleSubmit} />
                 </View>
 

@@ -1,5 +1,5 @@
 // LocationMap.js
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export { LocationMap };
+export { LocationMap };*/

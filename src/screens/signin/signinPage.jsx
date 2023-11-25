@@ -127,9 +127,11 @@ export { SigninPage };
 
 const styles = StyleSheet.create({
   formCon: {
-    height: 500,
+    height: 320,
     justifyContent: "center",
     paddingHorizontal: modifiers.containerPadding,
+    marginTop: 120
+
   },
 
   goToSignup: {
