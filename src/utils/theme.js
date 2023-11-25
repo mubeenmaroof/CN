@@ -9,7 +9,7 @@ const colors = {
 }
 
 const modifiers = {
-    containerPadding: 10,
+    containerPadding: 15,
     itemMargin: 10,
 }
 

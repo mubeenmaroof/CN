@@ -27,14 +27,16 @@ function SignupPage({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [mobileNo, setMobileNo] = useState('');
-    const [gender, setGender] = useState();
+    const [selectedGender, setSelectedGender] = useState('');
     const [isPickerShown, setIsPickerShown] = useState(false);
     const [isCameraShown, setIsCameraShown] = useState(false);
     const [imageFromPicker, setImageFromPicker] = useState('');
     const [imageFromCamera, setImageFromCamera] = useState('');
     const [showloading, setShowLoading] = useState(false);
 
-
+    const handleGenderChange = (gender) => {
+        setSelectedGender(gender);
+    };
 
     const handleShowPass = () => {
         setShowPass(!showPass)
@@ -43,8 +45,6 @@ function SignupPage({ navigation }) {
         setImageFromPicker(image.uri)
         setIsPickerShown(false)
     }
-
-
 
     // Firebase Auth 
     const signUp = () => {
@@ -80,9 +80,6 @@ function SignupPage({ navigation }) {
                 setShowLoading(false);
                 showToast("error", autherror.message, "top");
             });
-
-
-
 
     };
     // Navigate to Sign in Page
@@ -158,7 +155,8 @@ function SignupPage({ navigation }) {
                     />
                     <Input placeholder={'Mobile No'} showIcon={true} iconName={'person-outline'} onChange={(text) => setMobileNo(text)} />
 
-                    <GenderSelector
+                    <GenderSelector selectedGender={selectedGender}
+                        onGenderChange={handleGenderChange}
                     />
 
 
@@ -197,6 +195,7 @@ const styles = StyleSheet.create({
         height: '60%',
         justifyContent: 'center',
         paddingHorizontal: modifiers.containerPadding,
+        marginTop: 20
     },
     textBtnCon: {
         alignItems: 'flex-end'

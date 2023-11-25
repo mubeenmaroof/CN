@@ -1,10 +1,10 @@
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import RadioGroup from 'react-native-radio-buttons-group';
-import { View } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 
-function GenderSelector() {
+function GenderSelector({ selectedGender, onGenderChange }) {
 
     const radioButtons = useMemo(() => ([
         {
@@ -19,32 +19,28 @@ function GenderSelector() {
         }
     ]), []);
 
-    const [selectedId, setSelectedId] = useState();
-
 
     return (
-
-
-        <View style={{ alignItems: 'flex-start' }}>
-
+        <View style={style.container}>
+            <Text style={{ fontSize: 18, marginBottom: 8 }}>Select Gender :</Text>
             <RadioGroup
                 radioButtons={radioButtons}
-                onPress={setSelectedId}
-                selectedId={selectedId}
+                onPress={onGenderChange}
+                selectedId={selectedGender}
                 layout={'row'}
-
+                value={selectedGender}
             />
-
         </View>
-
-
-
-
-    )
-
-}
+    );
+};
 
 
 export { GenderSelector };
+
+const style = StyleSheet.create({
+    container: {
+        marginLeft: 15
+    }
+})
 
 
