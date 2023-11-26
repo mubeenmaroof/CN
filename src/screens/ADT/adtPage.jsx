@@ -378,8 +378,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     }, sp: {
-        width: '90%',
-        marginLeft: 20,
+        marginHorizontal: 10,
+        borderRadius: 5,
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        paddingHorizontal: 20,
+        marginVertical: modifiers.itemMargin,
     },
 
 });
