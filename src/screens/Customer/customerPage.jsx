@@ -79,14 +79,17 @@ function CustomerPage({ navigation }) {
         <SafeAreaView style={styles.mainContainer}>
             <ScrollView >
                 <Header title={'Customer Marking'} />
-
                 {/* Image Picker From Camera */}
-                <TouchableOpacity onPress={onImagePressed}>
-                    <View style={styles.imagePicker}>
-                        <Image source={{ uri: imageFromPicker || imageFromCamera }} style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode={'contain'} />
-                        <Ionicons name={'camera-sharp'} size={50} color={'white'} style={{ marginBottom: 60, paddingBottom: 50, height: 100 }} />
-                    </View>
-                </TouchableOpacity>
+                <View style={styles.imagePicker}>
+                    <TouchableOpacity onPress={onImagePressed}>
+                        {(imageFromPicker || imageFromCamera) ? (
+                            <Image source={{ uri: imageFromPicker || imageFromCamera }} style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode={'contain'} />
+                        ) : (
+                            <Ionicons name={'camera-sharp'} size={50} color={'white'}
+                                style={{ height: 150, marginLeft: 25, marginTop: 25 }} />
+                        )}
+                    </TouchableOpacity>
+                </View>
 
 
                 {/* Add Username, Email, Password with Button*/}
@@ -137,7 +140,8 @@ export { CustomerPage }
 
 const styles = StyleSheet.create({
     formCon: {
-        paddingHorizontal: modifiers.containerPadding
+        paddingHorizontal: modifiers.containerPadding,
+        marginTop: 20
     },
     textBtnCon: {
         alignItems: 'flex-end'
@@ -148,8 +152,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange',
         borderRadius: 50,
         alignSelf: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
         marginTop: 20
     }
 })

@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
         height: 35,
         alignItems: 'center',
         columnGap: 15,
-    }, textCon: {
+    },
+    textCon: {
         fontSize: 17,
         fontWeight: 'bold',
         justifyContent: 'center',

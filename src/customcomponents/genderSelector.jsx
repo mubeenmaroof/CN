@@ -8,15 +8,16 @@ function GenderSelector({ selectedGender, onGenderChange }) {
 
     const radioButtons = useMemo(() => ([
         {
-            id: '1', // acts as primary key, should be unique and non-empty string
+            id: 'Male', // acts as primary key, should be unique and non-empty string
             label: 'Male',
             value: 'option1'
         },
         {
-            id: '2',
+            id: 'Female',
             label: 'Female',
             value: 'option2'
-        }
+        },
+
     ]), []);
 
 

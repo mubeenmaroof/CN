@@ -34,6 +34,8 @@ function SignupPage({ navigation }) {
     const [imageFromCamera, setImageFromCamera] = useState('');
     const [showloading, setShowLoading] = useState(false);
 
+    console.log(selectedGender);
+
     const handleGenderChange = (gender) => {
         setSelectedGender(gender);
     };
@@ -131,12 +133,14 @@ function SignupPage({ navigation }) {
                 <Header title={'Sign up'} onPress={goToSiginp} />
 
                 {/* Image Picker From Camera */}
-                <View>
+                <View style={styles.imagePicker}>
                     <TouchableOpacity onPress={onImagePressed}>
-                        <View style={styles.imagePicker}>
+                        {(imageFromPicker || imageFromCamera) ? (
                             <Image source={{ uri: imageFromPicker || imageFromCamera }} style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode={'contain'} />
-                            <Ionicons name={'camera-sharp'} size={50} color={'white'} style={{ marginBottom: 60, paddingBottom: 50, height: 100 }} />
-                        </View>
+                        ) : (
+                            <Ionicons name={'camera-sharp'} size={50} color={'white'}
+                                style={{ height: 150, marginLeft: 25, marginTop: 25 }} />
+                        )}
                     </TouchableOpacity>
                 </View>
 
@@ -157,6 +161,7 @@ function SignupPage({ navigation }) {
 
                     <GenderSelector selectedGender={selectedGender}
                         onGenderChange={handleGenderChange}
+
                     />
 
 
@@ -206,8 +211,5 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange',
         borderRadius: 50,
         alignSelf: 'center',
-        alignItems: 'center',
-        justifyContent: 'center'
-
     }
-})
+});
