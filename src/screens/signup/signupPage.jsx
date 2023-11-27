@@ -50,7 +50,7 @@ function SignupPage({ navigation }) {
 
     // Firebase Auth 
     const signUp = () => {
-        console.log(firstName, lastName, email, password, gender);
+        console.log(firstName, lastName, email, password, mobileNo, selectedGender);
         //create a user account in firebase auth then upload Image
         setShowLoading(true);
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -68,6 +68,8 @@ function SignupPage({ navigation }) {
                     name: firstName, lastName,
                     email: email,
                     password: password,
+                    mobileNo: mobileNo,
+                    gender: selectedGender,
 
                 }).then(() => {
                     alert("Sign Up Succeccfull")
@@ -147,7 +149,7 @@ function SignupPage({ navigation }) {
 
                 {/* Add Username, Email, Password with Button*/}
                 <View style={styles.formCon}>
-                    <Input placeholder={'First Name'} showIcon={true} iconName={'person-outline'} onChange={setFirstName} />
+                    <Input placeholder={'First Name'} showIcon={true} iconName={'person-outline'} onChange={setFirstName} capital={'characters'} />
                     <Input placeholder={'Last Name'} showIcon={true} iconName={'person-outline'} onChange={setlastName} />
                     <Input placeholder={'Email'} showIcon={true} iconName={'mail-outline'} onChange={(text) => setEmail(text)} />
                     <Input placeholder={'Password'}

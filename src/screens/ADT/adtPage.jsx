@@ -40,12 +40,12 @@ function AdtPage({ navigation }) {
     const [selectedSubcategory2, setSelectedSubcategory2] = useState(null);
     // Add Splitter Detail
     const [selectedSplitter, setSelectedSplitter] = useState(null);
+    // Add Date
     const [selectedDate, setSelectedDate] = useState(null);
 
     const handleDateChange = (date) => {
         // Handle the selected date as needed in the parent component
         setSelectedDate(!selectedDate)
-        console.log('Selected Date:', date.toDateString());
     };
     const categories = [
         { label: 'Select a POP', value: null },
@@ -317,7 +317,7 @@ function AdtPage({ navigation }) {
 
                     <Input placeholder={'SP Port'} onChange={(text) => setPassword(text)} />
                     <DateTimePicker onDateChange={handleDateChange} onChange={(date) => setSelectedDate(date)} />
-
+                    <LocationMap />
                     <CusButton title='Submit' onButtonPress={handleSubmit} />
                 </View>
 

@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
+import { colors } from '../utils/theme';
 
 function SplashScreen({ navigation }) {
     useEffect(() => {
@@ -18,7 +19,7 @@ function SplashScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <LottieView
-                source={require('../../assets/Animation/Loading Screen.json')}
+                source={require('../../assets/Animation/CN2.lottie.json')}
                 autoPlay
                 loop={false}
                 style={styles.animation}
@@ -35,11 +36,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
+
+
     },
     animation: {
         width: '100%',
         height: '100%',
+        backgroundColor: '#FF4000',
+        resizeMode: 'contain'
     },
 });
 

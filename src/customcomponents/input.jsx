@@ -2,7 +2,7 @@ import { TextInput, StyleSheet, View } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 import { colors, modifiers } from "../utils/theme";
 
-function Input({ onChange, placeholder, isSecure, showIcon, iconName, onIconPress, beMultiline, editable, value }) {
+function Input({ onChange, placeholder, isSecure, showIcon, iconName, onIconPress, beMultiline, editable, value, capital }) {
     return (
         <View style={styles.inputCon}>
             <TextInput style={styles.input}
@@ -12,6 +12,7 @@ function Input({ onChange, placeholder, isSecure, showIcon, iconName, onIconPres
                 multilin={beMultiline}
                 editable={editable}
                 value={value}
+                autoCapitalize={capital}
 
             />
             {
