@@ -1,10 +1,10 @@
 import { SafeAreaView } from "react-native";
-import { NavContainer } from "./src/navigation/NavContainer";
+import { MainNav } from "./src/navigation/MainNav";
 
 export default function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <NavContainer />
+      <MainNav />
     </SafeAreaView>
   );
 }

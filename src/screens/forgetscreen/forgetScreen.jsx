@@ -44,7 +44,7 @@ export { ForgetPage };
 
 const styles = StyleSheet.create({
     formCon: {
-
+        flex: 1,
         justifyContent: "center",
         paddingHorizontal: modifiers.containerPadding,
         marginTop: 150
