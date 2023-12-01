@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Header } from "../../customcomponents/header";
 import { colors } from "../../utils/theme";
+import { Ionicons } from "@expo/vector-icons";
 
 
 function HomePage({ navigation }) {
@@ -22,7 +23,9 @@ function HomePage({ navigation }) {
 
     return (
         <View style={{ flex: 1 }}>
-            <Header title={'Home Page'} />
+
+            <Header
+                title={'Home Page'} />
             <View style={styles.container}>
 
                 <Text style={styles.texthead}> Marking Section </Text>

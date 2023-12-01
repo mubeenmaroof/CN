@@ -14,6 +14,9 @@ import { SigninPage } from '../screens/signin/signinPage';
 import { HomePage } from '../screens/home/homePage';
 import { ForgetPage } from '../screens/forgetscreen/forgetScreen';
 import { SplashScreen } from '../customcomponents/splashScreen';
+import { enableScreens } from 'react-native-screens';
+
+enableScreens();
 
 const adtPage = "ADTPage";
 const customerPage = "CustomerPage";
@@ -51,16 +54,16 @@ function MainTabScreen() {
                 tabBarActiveTintColor: 'tomato',
                 tabBarInactiveTintColor: 'grey',
                 tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
-                headerShown: false,
+                headerShown: true,
                 tabBarStyle: { height: 70, padding: 10 },
 
             })}
         >
-            <Tab.Screen name='HomePage' component={HomePage} />
-            <Tab.Screen name='ADTPage' component={AdtPage} />
-            <Tab.Screen name='CustomerPage' component={CustomerPage} />
-            <Tab.Screen name='AdtDetail' component={AdtDetail} />
-            <Tab.Screen name='CustomerDetail' component={CustomerDetail} />
+            <Tab.Screen name='HomePage' component={HomePage} options={{ headerTitle: 'Home Page' }} />
+            <Tab.Screen name='ADTPage' component={AdtPage} options={{ headerTitle: 'ADT Marking Page' }} />
+            <Tab.Screen name='CustomerPage' component={CustomerPage} options={{ headerTitle: 'Customer Marking Page' }} />
+            <Tab.Screen name='AdtDetail' component={AdtDetail} options={{ headerTitle: 'ADT Mark Details' }} />
+            <Tab.Screen name='CustomerDetail' component={CustomerDetail} options={{ headerTitle: 'Customer Mark Details' }} />
         </Tab.Navigator>
     );
 }
@@ -112,10 +115,10 @@ function MainNav() {
                 initialRouteName='Splash'
             >
                 <Drawer.Screen name='Splash' component={SplashScreen} options={{ headerShown: false }} />
-                <Drawer.Screen name='SigninPage' component={SigninPage} options={{ title: 'Signin Page' }} />
-                <Drawer.Screen name="SignupPage" component={SignupPage} options={{ title: 'Signup Page' }} />
-                <Drawer.Screen name='ForgetPage' component={ForgetPage} options={{ title: 'Forget Password Page' }} />
-                <Tab.Screen name='HomePage' component={MainTabScreen} />
+                <Drawer.Screen name='SigninPage' component={SigninPage} />
+                <Drawer.Screen name="SignupPage" component={SignupPage} />
+                <Drawer.Screen name='ForgetPage' component={ForgetPage} />
+                <Tab.Screen name='HomePage' component={MainTabScreen} options={{ headerShown: false }} />
             </Drawer.Navigator>
         </NavigationContainer>
     );
