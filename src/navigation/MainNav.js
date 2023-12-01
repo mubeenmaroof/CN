@@ -14,7 +14,6 @@ import { SigninPage } from '../screens/signin/signinPage';
 import { HomePage } from '../screens/home/homePage';
 import { ForgetPage } from '../screens/forgetscreen/forgetScreen';
 import { SplashScreen } from '../customcomponents/splashScreen';
-import { Title } from 'react-native-paper';
 
 const adtPage = "ADTPage";
 const customerPage = "CustomerPage";
@@ -30,7 +29,7 @@ function MainTabScreen() {
 
     return (
         <Tab.Navigator
-            initialRouteName={homPage}
+
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
@@ -54,10 +53,11 @@ function MainTabScreen() {
                 tabBarLabelStyle: { paddingBottom: 10, fontSize: 10 },
                 headerShown: false,
                 tabBarStyle: { height: 70, padding: 10 },
+
             })}
         >
-            <Tab.Screen name='HomePage' component={HomePage} options={{ headerTitle: 'Home Page' }} />
-            <Tab.Screen name='ADTPage' component={AdtPage} options={{ headerTitle: 'Home Page' }} />
+            <Tab.Screen name='HomePage' component={HomePage} />
+            <Tab.Screen name='ADTPage' component={AdtPage} />
             <Tab.Screen name='CustomerPage' component={CustomerPage} />
             <Tab.Screen name='AdtDetail' component={AdtDetail} />
             <Tab.Screen name='CustomerDetail' component={CustomerDetail} />
@@ -96,25 +96,9 @@ function CustomDrawerContent({ navigation }) {
                 onPress={() => navigation.navigate("ForgetPage")}
             />
             <DrawerItem
-                label="HomePage"
+                label="Home Page"
                 onPress={() => navigation.navigate("HomePage")} />
 
-            <DrawerItem
-                label="ADT Page"
-                onPress={() => navigation.navigate("ADTPage")}
-            />
-            <DrawerItem
-                label="Customer Page"
-                onPress={() => navigation.navigate("CustomerPage")}
-            />
-            <DrawerItem
-                label="ADT Detail"
-                onPress={() => navigation.navigate("AdtDetail")}
-            />
-            <DrawerItem
-                label="Customer Detail"
-                onPress={() => navigation.navigate("CustomerDetail")}
-            />
             <DrawerItem label="Log out" onPress={handleLogout} />
         </DrawerContentScrollView>
     );
@@ -131,15 +115,12 @@ function MainNav() {
                 <Drawer.Screen name='SigninPage' component={SigninPage} options={{ title: 'Signin Page' }} />
                 <Drawer.Screen name="SignupPage" component={SignupPage} options={{ title: 'Signup Page' }} />
                 <Drawer.Screen name='ForgetPage' component={ForgetPage} options={{ title: 'Forget Password Page' }} />
-                <Drawer.Screen name="ADTPage" component={AdtPage} options={{ title: 'ADT Marking Page' }} />
-                <Drawer.Screen name="CustomerPage" component={CustomerPage} options={{ title: 'Customer Marking Page' }} />
-                <Drawer.Screen name="AdtDetail" component={AdtDetail} options={{ title: 'ADT Marked Page' }} />
-                <Drawer.Screen name="CustomerDetail" component={CustomerDetail} options={{ title: 'Customer Marked Page' }} />
                 <Tab.Screen name='HomePage' component={MainTabScreen} />
-
             </Drawer.Navigator>
         </NavigationContainer>
     );
 }
+
+
 
 export { MainNav };

@@ -19,7 +19,7 @@ function SplashScreen({ navigation }) {
     return (
         <View style={styles.container} >
             <LottieView
-                source={require('../../assets/Animation/LocationGraber.mp4.lottie.json')}
+                source={require('../../assets/Animation/CN2.lottie.json')}
                 autoPlay
                 loop={false}
                 style={styles.animation}
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#FF3700'
     },
     animation: {
         width: '100%',
