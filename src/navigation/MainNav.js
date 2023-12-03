@@ -15,6 +15,7 @@ import { HomePage } from '../screens/home/homePage';
 import { ForgetPage } from '../screens/forgetscreen/forgetScreen';
 import { SplashScreen } from '../customcomponents/splashScreen';
 import { enableScreens } from 'react-native-screens';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 enableScreens();
 
@@ -25,6 +26,7 @@ const customerDetail = "CustomerDetail";
 const homPage = "HomePage";
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
 
 // For Tab Navigation //
 
@@ -67,6 +69,8 @@ function MainTabScreen() {
         </Tab.Navigator>
     );
 }
+
+// Drawer Navigation
 function CustomDrawerContent({ navigation }) {
     const handleLogout = () => {
         firebase
@@ -101,29 +105,50 @@ function CustomDrawerContent({ navigation }) {
             <DrawerItem
                 label="Home Page"
                 onPress={() => navigation.navigate("HomePage")} />
+            <DrawerItem
+                label="ADT Marking Page"
+                onPress={() => navigation.navigate("ADTPage")} />
+            <DrawerItem
+                label="Customer Marking Page"
+                onPress={() => navigation.navigate("CustomerPage")} />
+            <DrawerItem
+                label="ADT Mark Details"
+                onPress={() => navigation.navigate("AdtDetail")} />
+            <DrawerItem
+                label="Customer Mark Details"
+                onPress={() => navigation.navigate("CustomerDetail")} />
 
             <DrawerItem label="Log out" onPress={handleLogout} />
         </DrawerContentScrollView>
     );
 }
 
+// Assigne Drawer Navigation to Same Tab Navigation
+function DrawerNav() {
+    return (
+        <Drawer.Navigator
+            drawerContent={(props) => <CustomDrawerContent {...props} />}
+        >
+            <Tab.Screen name='MainTabScreen' component={MainTabScreen} options={{ headerShown: false }} />
+        </Drawer.Navigator>
+    );
+};
+
+// Combination of Stack and Drawer Navigation
+
 function MainNav() {
     return (
-        <NavigationContainer >
-            <Drawer.Navigator
-                drawerContent={(props) => <CustomDrawerContent {...props} />}
-                initialRouteName='Splash'
-            >
-                <Drawer.Screen name='Splash' component={SplashScreen} options={{ headerShown: false }} />
-                <Drawer.Screen name='SigninPage' component={SigninPage} />
-                <Drawer.Screen name="SignupPage" component={SignupPage} />
-                <Drawer.Screen name='ForgetPage' component={ForgetPage} />
-                <Tab.Screen name='HomePage' component={MainTabScreen} options={{ headerShown: false }} />
-            </Drawer.Navigator>
-        </NavigationContainer>
-    );
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName='Splash'>
+                <Stack.Screen name='Splash' component={SplashScreen} options={{ headerShown: false }} />
+                <Stack.Screen name='SigninPage' component={SigninPage} options={{ title: 'Signin Page' }} />
+                <Stack.Screen name="SignupPage" component={SignupPage} options={{ title: 'Signup Page' }} />
+                <Stack.Screen name='ForgetPage' component={ForgetPage} options={{ title: 'Forgot Password Page' }} />
+                <Drawer.Screen name='HomePage' component={DrawerNav} options={{ headerShown: false }} />
+            </Stack.Navigator>
+        </NavigationContainer >
+    )
 }
-
 
 
 export { MainNav };
