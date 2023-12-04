@@ -50,9 +50,7 @@ function CustomCamera({ show, onClose, onPicktureTaken }) {
                         <TouchableOpacity onPress={__takePicture} style={styles.pickButtn}>
                             <Ionicons name={'camera'} color={'white'} size={50} />
                         </TouchableOpacity>
-
                     </View>
-
                 </Camera>
             </Modal>
         </View>
