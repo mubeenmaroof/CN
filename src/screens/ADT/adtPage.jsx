@@ -9,12 +9,12 @@ import { firebase } from '../../services/firebaseConfig';
 import { CustomCamera } from '../../customcomponents/CustomCamera';
 import { Loading } from '../../customcomponents/loading';
 import { makeBlob } from '../../services/uploadImage';
-import { getARandomImageName, showToast } from '../../utils/help';
+import { getARandomImageName } from '../../utils/help';
 import Toast from 'react-native-toast-message';
 import { Ionicons } from '@expo/vector-icons';
 import RNPickerSelect from 'react-native-picker-select';
 import { DateTimePicker } from '../../customcomponents/datePicker';
-import { LocationMap } from '../../customcomponents/mapAndGeoLocation';
+
 
 function AdtPage({ navigation }) {
     const [showPass, setShowPass] = useState(false);
@@ -30,11 +30,7 @@ function AdtPage({ navigation }) {
     const [showloading, setShowLoading] = useState(false);
     const [srNo, setSrNo] = useState(1); // Initial Sr. No
     const [otherField, setOtherField] = useState('');
-    const [currentLocation, setCurrentLocation] = useState(null);
 
-    const handleLocationChange = (newLocation) => {
-        setCurrentLocation(newLocation);
-    };
 
     // For Drop Down Picker Select
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -268,7 +264,7 @@ function AdtPage({ navigation }) {
                         <Text>Add ADT Details:</Text>
                         <RNPickerSelect
                             placeholder={{}}
-                            items={categories}
+                            items={categories.filter(item => item.value !== null)}
                             onValueChange={handleCategoryChange}
                             value={selectedCategory}
                         />
@@ -278,7 +274,7 @@ function AdtPage({ navigation }) {
                                 <Text>Select Pockets for {selectedCategory}:</Text>
                                 <RNPickerSelect
                                     placeholder={{}}
-                                    items={subcategoryOptions[selectedCategory]}
+                                    items={subcategoryOptions[selectedCategory].filter(item => item.value !== null)}
                                     onValueChange={(value) => setSelectedSubcategory1(value)}
                                     value={selectedSubcategory1}
                                 />
@@ -290,7 +286,7 @@ function AdtPage({ navigation }) {
                                 <Text>Select a Distribution Cable for {selectedSubcategory1}:</Text>
                                 <RNPickerSelect
                                     placeholder={{}}
-                                    items={subcategoryOptions1[selectedSubcategory1]}
+                                    items={subcategoryOptions1[selectedSubcategory1].filter(item => item.value !== null)}
                                     onValueChange={(value) => setSelectedSubcategory2(value)}
                                     value={selectedSubcategory2}
                                 />
@@ -310,7 +306,7 @@ function AdtPage({ navigation }) {
                         <Text>Add Splitter Details:</Text>
                         <RNPickerSelect
                             placeholder={{}}
-                            items={splitterType}
+                            items={splitterType.filter(item => item.value !== null)}
                             onValueChange={(value) => setSelectedSplitter(value)}
                             value={selectedSplitter}
                             style={styles.drop}
@@ -319,13 +315,8 @@ function AdtPage({ navigation }) {
 
                     <Input placeholder={'SP Port'} onChange={(text) => setPassword(text)} />
                     <DateTimePicker onDateChange={handleDateChange} onChange={(date) => setSelectedDate(date)} />
-                    <LocationMap onLocationChange={handleLocationChange} />
-                    <Text>Current Location:</Text>
-                    <View style={styles.infoContainer}>
 
-                        <Text>{`Latitude: ${currentLocation ? currentLocation.latitude : ''}`}</Text>
-                        <Text>{`Longitude: ${currentLocation ? currentLocation.longitude : ''}`}</Text>
-                    </View>
+
                     <CusButton title='Submit' onButtonPress={handleSubmit} />
                 </View>
 
