@@ -16,8 +16,6 @@ function SigninPage({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
-
   const handleShowPass = () => {
     if (showPass === true) {
       setShowPass(false);
@@ -66,7 +64,6 @@ function SigninPage({ navigation }) {
       setShowLoading(false);
       navigation.navigate("Home");
       showToast("success", "You are The Authentic User", "top");
-
     } catch (error) {
       setShowLoading(false);
       if (error.code === "auth/user-not-found") {
@@ -83,10 +80,10 @@ function SigninPage({ navigation }) {
     }
   };
   const gotoHomePage = () => {
-    navigation.navigate('HomePage')
+    navigation.navigate("HomePage");
   };
   const gotoForgetPage = () => {
-    navigation.navigate('ForgetPage')
+    navigation.navigate("ForgetPage");
   };
 
   return (
@@ -109,7 +106,10 @@ function SigninPage({ navigation }) {
           onChange={(text) => setPassword(text)}
         />
         <View style={styles.textBtnCon}>
-          <TextButton title={"Forgot your password?"} onPress={gotoForgetPage} />
+          <TextButton
+            title={"Forgot your password?"}
+            onPress={gotoForgetPage}
+          />
         </View>
 
         <CusButton title="Sign in" onButtonPress={handleSignIn} />
@@ -133,8 +133,7 @@ const styles = StyleSheet.create({
     height: 320,
     justifyContent: "center",
     paddingHorizontal: modifiers.containerPadding,
-    marginTop: 120
-
+    marginTop: 120,
   },
 
   goToSignup: {
